@@ -134,7 +134,7 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
 
   Widget _buildTitle() {
     return const Text(
-      'Plant Recogniser',
+      'Vehicle Recogniser',
       style: kTitleTextStyle,
       textAlign: TextAlign.center,
     );

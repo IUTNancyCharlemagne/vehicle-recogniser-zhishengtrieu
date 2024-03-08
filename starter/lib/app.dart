@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
       ],
     );
     return MaterialApp(
-      title: 'Plant Recognizer',
+      title: 'Vehicle Recognizer',
       theme: ThemeData.light(),
       home: const PlantRecogniser(),
       debugShowCheckedModeBanner: false,
