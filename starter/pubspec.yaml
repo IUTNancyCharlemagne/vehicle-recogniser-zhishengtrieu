@@ -26,8 +26,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-name: plantrecogniser
-description: Plant recogniser in Flutter using TensorFlow Lite
+name: vehiclerecogniser
+description: Vehicle recogniser in Flutter using TensorFlow Lite
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -38,13 +38,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  image_picker: ^0.8.6
+  image_picker: ^1.0.7
   collection: ^1.16.0
-  image: ^3.2.2
+  image: 3.3.0
+  tflite_flutter: ^0.9.0
+  tflite_flutter_helper:
+    git:
+      url: https://github.com/filofan1/tflite_flutter_helper.git
+      ref: 783f15e5a87126159147d8ea30b98eea9207ac70
 
 
 dev_dependencies:
-  flutter_lints: ^2.0.1
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 
@@ -61,6 +66,6 @@ flutter:
   - family: Roboto
     fonts:
       - asset: assets/Roboto-Light.ttf      
-  
+
   assets:
     - assets/
