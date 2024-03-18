@@ -61,7 +61,7 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
   String _plantLabel = ''; // Name of Error Message
   double _accuracy = 0.0;
 
-  late Classifier? _classifier;
+  late Classifier _classifier;
 
   @override
   void initState() {
@@ -80,7 +80,7 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
       labelsFileName: _labelsFileName,
       modelFileName: _modelFileName,
     );
-    _classifier = classifier;
+    _classifier = classifier!;
   }
 
   @override
@@ -188,7 +188,7 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
 
     final imageInput = img.decodeImage(image.readAsBytesSync())!;
 
-    final resultCategory = _classifier!.predict(imageInput);
+    final resultCategory = _classifier.predict(imageInput);
 
     final result = resultCategory.score >= 0.8
         ? _ResultStatus.found

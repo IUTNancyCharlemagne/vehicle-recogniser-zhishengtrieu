@@ -1,4 +1,7 @@
-0 Rose
-1 Daisy
-2 Sunflower
-3 Tulip
+0 Porsche
+1 Tank
+2 Ship
+3 Helicopter
+4 Fighter jet
+5 Plane
+6 Mercedes Benz

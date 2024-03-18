@@ -64,41 +64,6 @@ class Classifier {
     }
   }
 
-  ClassifierCategory predict(Image image) {
-    // Load the image and convert it to TensorImage for TensorFlow Input
-    final inputImage = _preProcessInput(image);
-
-    // Define the output buffer
-    final outputBuffer = TensorBuffer.createFixedSize(
-      _model.outputShape,
-      _model.outputType,
-    );
-
-    // Run inference
-    _model.interpreter.run(inputImage.buffer, outputBuffer.buffer);
-
-    // Post Process the outputBuffer
-    final resultCategories = _postProcessOutput(outputBuffer);
-    final topResult = resultCategories.first;
-
-    debugPrint('Top category: $topResult');
-
-    return topResult;
-  }
-
-  static Future<ClassifierLabels> _loadLabels(String labelsFileName) async {
-    // #1
-    final rawLabels = await FileUtil.loadLabels(labelsFileName);
-
-    // #2
-    final labels = rawLabels
-        .map((label) => label.substring(label.indexOf(' ')).trim())
-        .toList();
-
-    debugPrint('Labels: $labels');
-    return labels;
-  }
-
   static Future<ClassifierModel> _loadModel(String modelFileName) async {
     // #1
     final interpreter = await Interpreter.fromAsset(modelFileName);
@@ -124,6 +89,74 @@ class Classifier {
       inputType: inputType,
       outputType: outputType,
     );
+  }
+
+  static Future<ClassifierLabels> _loadLabels(String labelsFileName) async {
+    final rawLabels = await FileUtil.loadLabels(labelsFileName);
+
+    // Remove the index number from the label
+    final labels = rawLabels
+        .map((label) => label.substring(label.indexOf(' ')).trim())
+        .toList();
+
+    debugPrint('Labels: $labels');
+    return labels;
+  }
+
+  void close() {
+    _model.interpreter.close();
+  }
+
+  ClassifierCategory predict(Image image) {
+    debugPrint(
+      'Image: ${image.width}x${image.height}, '
+      'size: ${image.length} bytes',
+    );
+
+    // Load the image and convert it to TensorImage for TensorFlow Input
+    final inputImage = _preProcessInput(image);
+
+    debugPrint(
+      'Pre-processed image: ${inputImage.width}x${image.height}, '
+      'size: ${inputImage.buffer.lengthInBytes} bytes',
+    );
+
+    // Define the output buffer
+    final outputBuffer = TensorBuffer.createFixedSize(
+      _model.outputShape,
+      _model.outputType,
+    );
+
+    // Run inference
+    _model.interpreter.run(inputImage.buffer, outputBuffer.buffer);
+
+    debugPrint('OutputBuffer: ${outputBuffer.getDoubleList()}');
+
+    // Post Process the outputBuffer
+    final resultCategories = _postProcessOutput(outputBuffer);
+    final topResult = resultCategories.first;
+
+    debugPrint('Top category: $topResult');
+
+    return topResult;
+  }
+
+  List<ClassifierCategory> _postProcessOutput(TensorBuffer outputBuffer) {
+    final probabilityProcessor = TensorProcessorBuilder().build();
+
+    probabilityProcessor.process(outputBuffer);
+
+    final labelledResult = TensorLabel.fromList(_labels, outputBuffer);
+
+    final categoryList = <ClassifierCategory>[];
+    labelledResult.getMapWithFloatValue().forEach((key, value) {
+      final category = ClassifierCategory(key, value);
+      categoryList.add(category);
+      debugPrint('label: ${category.label}, score: ${category.score}');
+    });
+    categoryList.sort((a, b) => (b.score > a.score ? 1 : -1));
+
+    return categoryList;
   }
 
   TensorImage _preProcessInput(Image image) {
@@ -153,28 +186,5 @@ class Classifier {
 
     // #6
     return inputTensor;
-  }
-
-  List<ClassifierCategory> _postProcessOutput(TensorBuffer outputBuffer) {
-    // #1
-    final probabilityProcessor = TensorProcessorBuilder().build();
-
-    probabilityProcessor.process(outputBuffer);
-
-    // #2
-    final labelledResult = TensorLabel.fromList(_labels, outputBuffer);
-
-    // #3
-    final categoryList = <ClassifierCategory>[];
-    labelledResult.getMapWithFloatValue().forEach((key, value) {
-      final category = ClassifierCategory(key, value);
-      categoryList.add(category);
-      debugPrint('label: ${category.label}, score: ${category.score}');
-    });
-
-    // #4
-    categoryList.sort((a, b) => (b.score > a.score ? 1 : -1));
-
-    return categoryList;
   }
 }
