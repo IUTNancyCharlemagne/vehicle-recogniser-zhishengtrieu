@@ -29,7 +29,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'widget/plant_recogniser.dart';
+import 'widget/vehicle_recogniser.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);

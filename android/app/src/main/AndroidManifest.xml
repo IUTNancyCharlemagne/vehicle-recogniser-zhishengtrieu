@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kodeco.plantreco">
    <application
-        android:label="Plant Recogniser"
+        android:label="Vehicle Recogniser"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
