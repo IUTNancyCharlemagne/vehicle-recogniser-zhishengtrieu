@@ -149,14 +149,14 @@ class _PlantRecogniserState extends State<PlantRecogniser> {
       child: Container(
         width: 300,
         height: 50,
-        color: kColorBrown,
+        color: kColorDarkGray,
         child: Center(
             child: Text(title,
                 style: const TextStyle(
                   fontFamily: kButtonFont,
                   fontSize: 20.0,
                   fontWeight: FontWeight.w600,
-                  color: kColorLightYellow,
+                  color: kColorWhite,
                 ))),
       ),
     );

@@ -32,44 +32,37 @@ const kMainFont = 'Roboto';
 const kButtonFont = 'Roboto';
 const kDisplayFont = 'SquadaOne';
 
-const kColorGreen = Color(0xFF395144);
-const kColorLightGreen = Color(0XFF4E6C50);
-const kColorBrown = Color(0XFFAA8B56);
-const kColorLightYellow = Color(0xFFF0EBCE);
+const kColorDarkGray = Color(0xFF4A4A4A); 
+const kColorLightGray = Color(0xFFB1B1B1); 
+const kColorWhite = Color(0xFFFFFFFF); 
+const kColorBlack = Color(0xFF000000); 
+const kColorLightOrange = Color(0xFFFFA500);
+const kColorDarkGray2 = Color(0xFF464e5d);
 
-const kColorRed = Color(0xFFD96666);
-const kColorLightRed = Color(0xFFF2CECE);
-const kColorLightGray = Color(0xFFDDDDDD);
 
-const kColorHunterGreen = Color(0xFF386641);
-const kColorMayGreen = Color(0xFF6a994e);
-const kColorAndroidGreen = Color(0xFFa7c957);
-const kColorEggshell = Color(0xFFf2e8cf);
-const kColorBitterSweetShimmer = Color(0xFFbc4749);
-
-const kBgColor = kColorGreen;
+const kBgColor = kColorLightGray;
 
 const kTitleTextStyle = TextStyle(
   fontFamily: kDisplayFont,
   fontSize: 50.0,
-  color: kColorAndroidGreen,
+  color: kColorDarkGray2, // Texte en gris fonce pour le titre
   decoration: TextDecoration.none,
 );
 
 const kAnalyzingTextStyle = TextStyle(
-    fontFamily: kMainFont,
-    fontSize: 25.0,
-    color: kColorEggshell,
-    decoration: TextDecoration.none);
+  fontFamily: kMainFont,
+  fontSize: 25.0,
+  color: kColorDarkGray, // Texte en gris foncé pour les sous-titres
+  decoration: TextDecoration.none);
 
 const kResultTextStyle = TextStyle(
-    fontFamily: kDisplayFont,
-    fontSize: 35.0,
-    color: kColorLightYellow,
-    decoration: TextDecoration.none);
+  fontFamily: kDisplayFont,
+  fontSize: 35.0,
+  color: kColorLightOrange, // Résultats soulignés en orange
+  decoration: TextDecoration.none);
 
 const kResultRatingTextStyle = TextStyle(
-    fontFamily: kMainFont,
-    fontSize: 18.0,
-    color: Colors.white,
-    decoration: TextDecoration.none);
+  fontFamily: kMainFont,
+  fontSize: 18.0,
+  color: kColorBlack, 
+  decoration: TextDecoration.none);
