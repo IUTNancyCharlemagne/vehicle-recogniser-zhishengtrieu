@@ -3,5 +3,3 @@
 2 Ship
 3 Helicopter
 4 Fighter jet
-5 Plane
-6 Mercedes Benz
